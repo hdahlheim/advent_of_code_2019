@@ -8,27 +8,9 @@ defmodule AdventOfCode2019.DayTwo do
     |> step_through()
   end
 
+  # Setup
   def state(memory) do
     %{position: 0, memory: memory}
-  end
-
-  def brute_force(int_list) do
-    noun = Enum.random(1..99)
-    verb = Enum.random(1..99)
-
-    result =
-      state(int_list)
-      |> restore_assist(noun, verb)
-      |> step_through()
-      |> Enum.at(0)
-
-    case result do
-      19_690_720 ->
-        {19_690_720, noun, verb}
-
-      _ ->
-        brute_force(int_list)
-    end
   end
 
   def restore_assist(state, noun \\ 12, verb \\ 2) do
@@ -40,6 +22,7 @@ defmodule AdventOfCode2019.DayTwo do
     %{state | memory: restored_ops}
   end
 
+  # Part one
   def step_through({:done, state}), do: state.memory
 
   def step_through(state) do
@@ -64,5 +47,25 @@ defmodule AdventOfCode2019.DayTwo do
     num1 = Enum.at(memory, pos1)
     num2 = Enum.at(memory, pos2)
     List.replace_at(memory, out, operation.(num1, num2))
+  end
+
+  # Part Two
+  def brute_force(int_list) do
+    noun = Enum.random(1..99)
+    verb = Enum.random(1..99)
+
+    result =
+      state(int_list)
+      |> restore_assist(noun, verb)
+      |> step_through()
+      |> Enum.at(0)
+
+    case result do
+      19_690_720 ->
+        {19_690_720, noun, verb}
+
+      _ ->
+        brute_force(int_list)
+    end
   end
 end
