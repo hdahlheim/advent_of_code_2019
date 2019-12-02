@@ -1,4 +1,4 @@
-defmodule DayOne do
+defmodule AdventOfCode2019.DayOne do
   def fuel(mass) do
     div(mass, 3) - 2
   end
